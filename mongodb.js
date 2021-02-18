@@ -10,5 +10,9 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error,client) => 
         return console.log('Unable to connect to database!')
     }
 
-    console.log('Connection successful!')
+    const db = client.db(databaseName)
+    db.collection('users').insertOne({
+        name: 'Faisal',
+        age: 23
+    })
 })
