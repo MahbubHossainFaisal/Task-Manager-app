@@ -1,5 +1,15 @@
-const mongodb = require('mongodb')
-const MongoClient = mongodb.MongoClient
+// const mongodb = require('mongodb')
+// const MongoClient = mongodb.MongoClient
+//These two method calls can also be done using object destructuring below
+
+const {MongoClient,ObjectID}= require('mongodb')
+
+const id = new ObjectID()
+console.log(id);
+console.log(id.id);
+console.log(id.id.length);
+console.log(id.toHexString().length)
+console.log(id.getTimestamp())
 
 const connectionURL = 'mongodb://127.0.0.1:27017'
 const databaseName = 'task-manager'
@@ -14,8 +24,9 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error,client) => 
 
     //Insert one user
     // db.collection('users').insertOne({
-    //     name: 'Faisal',
-    //     age: 23
+    //     _id: id, //providing my own created objectID
+    //     name: 'Shamim Hasan',
+    //     age: 22
     // }, (error,result) => {
     //     if(error){
     //        return console.log('Unable to insert user!')
@@ -23,38 +34,23 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error,client) => 
     //     console.log(result.ops)
     // })
 
-    //Insert many users to the collection
-    // db.collection('users').insertMany([
+
+    //Practice of many insert
+    // db.collection('tasks').insertMany([
     //     {
-    //         name: 'Shanta',
-    //         age: 28
+    //         description: 'Problem solving',
+    //         completed: true
     //     }, {
-    //         name: 'Sakib',
-    //         age: 23
+    //         description: 'Web development',
+    //         completed: false
+    //     },  {
+    //         description: 'Quiz preparation',
+    //         completed: true
     //     }
     // ], (error,result) => {
     //     if(error){
-    //        return console.log('Unable to insert user!')
+    //         return console.log('Unable to insert!')
     //     }
     //     console.log(result.ops)
     // })
-
-    //Practice of many insert
-    db.collection('tasks').insertMany([
-        {
-            description: 'Problem solving',
-            completed: true
-        }, {
-            description: 'Web development',
-            completed: false
-        },  {
-            description: 'Quiz preparation',
-            completed: true
-        }
-    ], (error,result) => {
-        if(error){
-            return console.log('Unable to insert!')
-        }
-        console.log(result.ops)
-    })
 })
