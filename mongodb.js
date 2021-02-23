@@ -17,37 +17,21 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error,client) => 
     }
 
     const db = client.db(databaseName)
-    //to find anything with object property 
-   //  db.collection('users').findOne( { name: 'Faisal'}, (error,result) => {
-   //      if(error){
-   //         return console.log('Unable to fetch!')
-   //      }
-   //      console.log(result);
-   //  })
+    
+    //delete multiple
+    db.collection('tasks').deleteMany({
+       completed: false // find where completed property value is false and delete it
+    }).then((result) => {
+       console.log(result.deletedCount)
+    }).catch((error) =>{
+       console.log(error)
+    })
 
-    //Update method ,This time with promises,not with callback function
-
-   //  db.collection('users').updateOne( {_id: new ObjectID("602eb2e1d23aa234080492a7")} , {
-   //     $inc :{
-   //       age: -1
-   //     },
-   //     $set : {
-   //       name:'Shakil'
-   //     }
-   //  }).then((result) =>{
-   //     console.log(result);
-   //  }).catch((error) =>{
-   //     console.log(error)
-   //  })
-
-    db.collection('tasks').updateMany({
-       completed: false //find all the properties of completed which are false
-    },{
-      $set: {
-          completed: true //update them with true
-      }
-    }).then((result) =>{
-       console.log(result.modifiedCount)
+    //delete one
+    db.collection('tasks').deleteOne({
+       description: "Problem solving" //find where descript value is problem solving and delete it
+    }).then((result) => {
+       console.log(result.deletedCount)
     }).catch((error) =>{
        console.log(error)
     })
